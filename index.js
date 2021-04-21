@@ -1,13 +1,13 @@
 /* Declare a constant that contains a login of the target github user */
 
-const USER_NAME = 'harindersj';
+const USER_NAME = "jetbrains";
 
 /* The following renderUserDetails(user) function creates and inserts the user profile data into the DOM */
 
 function renderUserDetails(user) {
-    const container = document.getElementById('user-details');
+  const container = document.getElementById("user-details");
 
-    container.innerHTML = `
+  container.innerHTML = `
     <img src=${user.avatar_url} class="user-avatar"/>
     <h4>${user.name} aka <a href="${user.html_url}">${user.login}</a></h4>
     <div>
@@ -20,15 +20,18 @@ function renderUserDetails(user) {
     It uses the Fetch API (https://developer.mozilla.org/en-US/docs/Web/API/Fetch_API) */
 
 function loadAndRenderUser(userLogin) {
-    return fetch(`https://api.github.com/users/${userLogin}`)
-    .then(response => {
-        return response.ok ? response.json() : new Error(response);
+  return fetch(
+    `https://utrackon.myjetbrains.com/youtrack/api/admin/users/me?fields=id,login,name,email`
+  )
+    .then((response) => {
+      console.log(response);
+      return response.ok ? response.json() : new Error(response);
     })
-    .then(user => {
-        renderUserDetails(user);
-        return user;
+    .then((user) => {
+      renderUserDetails(user);
+      return user;
     })
-    .catch(err => console.warn(err));
+    .catch((err) => console.warn(err));
 }
 
 /* The last step is to register the widget in the dashboard and initiate loading the user data.
@@ -38,13 +41,13 @@ function loadAndRenderUser(userLogin) {
 
 // Register widget:
 Dashboard.registerWidget(function (dashboardAPI, registerWidgetAPI) {
-    // Load GitHub profile data
-    loadAndRenderUser(USER_NAME)
+  // Load GitHub profile data
+  loadAndRenderUser(USER_NAME)
     // Set the widget title
-    .then(user => dashboardAPI.setTitle(`GitHub User ${user.login}`));
+    .then((user) => dashboardAPI.setTitle(`GitHub User ${user.login}`));
 
-    // Add the refresh button.
-    registerWidgetAPI({
-        onRefresh: () => loadAndRenderUser(USER_NAME)
-    });
+  // Add the refresh button.
+  registerWidgetAPI({
+    onRefresh: () => loadAndRenderUser(USER_NAME),
+  });
 });
