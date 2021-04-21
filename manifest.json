@@ -1,0 +1,11 @@
+{
+    "key": "utrack-github",
+    "version": "0.0.1",
+    "name": "youtrack widgrt",
+    "description": "Widget shows information about total issue done.",
+    "author": "anonymous",
+    "products": {
+    "Hub": ">=2018.1",
+    "YouTrack": ">=2018.1"
+    }
+}
