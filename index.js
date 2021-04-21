@@ -1,6 +1,6 @@
 /* Declare a constant that contains a login of the target github user */
 
-const USER_NAME = 'harindersj';
+const USER_NAME = 'jetbrains';
 
 /* The following renderUserDetails(user) function creates and inserts the user profile data into the DOM */
 
